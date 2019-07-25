@@ -1,0 +1,35 @@
+{% extends "main/layout.html" %}
+{% block title %}
+Board
+{% endblock %}
+
+{% block content %}
+<!-- {% if error %}
+<div class="alert alert-danger" role="alert">
+    내용이 전부 채워지지 않았습니다!
+</div>
+{% endif %} -->
+<div class="container">
+<form action="{% if board %}{% url 'board_update' board.id %}{% else %}{% url 'board_create' %}{% endif %}" method="POST">    {% csrf_token %}
+    <div class="form-group">
+      <label for="exampleFormControlInput1">title</label>
+      <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="title"
+      name="title" value="{% if board %}{{board.title}}{% endif %}">
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">author</label>
+        <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="author"
+        name="author" value="{% if board %}{{board.author}}{% endif %}">
+      </div>
+    <div class="form-group">
+      <label for="exampleFormControlTextarea1">content</label>
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="content">{% if board %}{{board.content}}{% endif %}</textarea>
+    </div>
+    <div class="form-group">
+        <label for="exampleFormControlInput1">password</label>
+        <input type="password" class="form-control" id="exampleFormControlInput1" name="pwd">
+      </div>
+    <button type="submit" class="btn btn-primary">submit</button>
+  </form>
+</div>
+{% endblock %}
